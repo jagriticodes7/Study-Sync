@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudySync | Your Personal Study Space</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+<script defer
+src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+
+<body>
+
+<div class="app-container">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+<div class="logo">
+<span class="logo-icon">✿</span>
+<h2>StudySync</h2>
+</div>
+
+<p class="sidebar-label">WORKSPACE</p>
+
+<nav class="sidebar-nav">
+<a href="#dashboard" class="nav-link active">⌂ Dashboard</a>
+<a href="#tasks" class="nav-link">☷ My Tasks</a>
+<a href="#calendar" class="nav-link">▦ Calendar</a>
+<a href="#scheduler" class="nav-link">✧ Smart Scheduler</a>
+<a href="#pomodoro" class="nav-link">◷ Pomodoro</a>
+<a href="#reminders" class="nav-link">♡ Reminders</a>
+<a href="#family" class="nav-link">♧ Family Connect</a>
+<a href="#progress" class="nav-link">✿ Progress Garden</a>
+</nav>
+
+<div class="sidebar-bottom">
+<p>little steps, big dreams ♡</p>
+</div>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+<!-- TOP BAR -->
+<header class="topbar">
+
+<div class="welcome-text">
+<p class="section-label">YOUR PERSONAL SPACE</p>
+<h1>Welcome back! <span>♡</span></h1>
+<p>Let's make today a little more productive.</p>
+</div>
+
+<div class="topbar-actions">
+<input
+type="search"
+id="globalSearch"
+placeholder="Search anything..."
+aria-label="Search StudySync">
+
+<div class="profile">
+<span class="profile-icon">☁️</span>
+<span>My Space</span>
+</div>
+</div>
+
+</header>
+
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="dashboard-section">
+
+<!-- GREETING CARD -->
+<div class="greeting-card">
+<div>
+<p class="section-label">A FRESH START</p>
+<h2>Make today count ✨</h2>
+<p>
+Organize your thoughts, focus on your goals,
+and enjoy the little wins.
+</p>
+</div>
+
+<div class="greeting-decoration">🌷</div>
+</div>
+
+
+<!-- STATISTICS -->
+<div class="stats-grid">
+
+<div class="stat-card">
+<span class="stat-icon">☷</span>
+<p>Total Tasks</p>
+<h2 id="totalTasks">0</h2>
+</div>
+
+<div class="stat-card">
+<span class="stat-icon">✓</span>
+<p>Completed</p>
+<h2 id="completedTasks">0</h2>
+</div>
+
+<div class="stat-card">
+<span class="stat-icon">◷</span>
+<p>Focus Sessions</p>
+<h2 id="focusSessions">0</h2>
+</div>
+
+<div class="stat-card">
+<span class="stat-icon">✿</span>
+<p>Daily Progress</p>
+<h2 id="dailyProgress">0%</h2>
+</div>
+
+</div>
+
+
+<!-- DASHBOARD GRID -->
+<div class="dashboard-grid">
+
+
+<!-- TASK MANAGER -->
+<div id="tasks" class="content-card tasks-card">
+
+<div class="card-heading">
+<div>
+<p class="section-label">STAY ORGANIZED</p>
+<h2>My Tasks ✧</h2>
+</div>
+
+<button class="add-button" id="addTaskBtn">
++ New Task
+</button>
+</div>
+
+<div class="task-filters">
+<button class="filter-btn active" data-filter="all">
+All
+</button>
+
+<button class="filter-btn" data-filter="active">
+To Do
+</button>
+
+<button class="filter-btn" data-filter="completed">
+Completed
+</button>
+</div>
+
+<div id="taskList">
+<p class="empty-message">
+Your tasks will appear here ♡
+</p>
+</div>
+
+</div>
+
+
+<!-- CALENDAR -->
+<div id="calendar" class="content-card">
+
+<div class="card-heading">
+<div>
+<p class="section-label">PLAN AHEAD</p>
+<h2>My Calendar</h2>
+</div>
+
+<button class="add-button" id="addEventBtn">
++
+</button>
+</div>
+
+<div class="calendar-controls">
+<button id="prevMonth" aria-label="Previous month">
+←
+</button>
+
+<h3 id="monthYear">November 2026</h3>
+
+<button id="nextMonth" aria-label="Next month">
+→
+</button>
+</div>
+
+<div id="calendarGrid" class="calendar-grid"></div>
+
+<div id="eventList"></div>
+
+</div>
+
+
+<!-- SMART SCHEDULER -->
+<div id="scheduler" class="content-card">
+
+<div class="card-heading">
+<div>
+<p class="section-label">MAKE YOUR DAY EASIER</p>
+<h2>Smart Scheduler ✨</h2>
+</div>
+</div>
+
+<p class="card-description">
+Turn your tasks into a simple daily plan.
+</p>
+
+<div id="scheduleList">
+<p class="empty-message">
+Your schedule will appear here.
+</p>
+</div>
+
+<button id="generateSchedule" class="primary-button">
+Generate My Schedule
+</button>
+
+</div>
+
+
+<!-- POMODORO -->
+<div id="pomodoro" class="content-card pomodoro-card">
+
+<div class="card-heading">
+<div>
+<p class="section-label">FOCUS TIME</p>
+<h2>Pomodoro Room</h2>
+</div>
+
+<span>☁️</span>
+</div>
+
+<div class="timer-container">
+<div class="timer-circle">
+<h1 id="timerDisplay">25:00</h1>
+<p id="timerStatus">Ready to focus?</p>
+</div>
+</div>
+
+<div class="timer-controls">
+<button id="startTimer" class="primary-button">
+Start
+</button>
+
+<button id="pauseTimer" class="secondary-button">
+Pause
+</button>
+
+<button id="resetTimer" class="secondary-button">
+Reset
+</button>
+</div>
+
+<div class="timer-modes">
+<button data-minutes="25">Focus</button>
+<button data-minutes="5">Short Break</button>
+<button data-minutes="15">Long Break</button>
+</div>
+
+</div>
+
+
+<!-- REMINDERS -->
+<div id="reminders" class="content-card">
+
+<div class="card-heading">
+<div>
+<p class="section-label">DON'T FORGET</p>
+<h2>Reminders ♡</h2>
+</div>
+
+<button id="addReminderBtn" class="add-button">
++
+</button>
+</div>
+
+<div id="reminderList">
+<p class="empty-message">
+No reminders yet.
+</p>
+</div>
+
+</div>
+
+
+<!-- FAMILY CONNECT -->
+<div id="family" class="content-card">
+
+<div class="card-heading">
+<div>
+<p class="section-label">YOUR SUPPORT CIRCLE</p>
+<h2>Family Connect</h2>
+</div>
+
+<span>♡</span>
+</div>
+
+<p class="card-description">
+Stay connected and share your little achievements.
+</p>
+
+<div id="familyList">
+<p class="empty-message">
+Your family space is waiting.
+</p>
+</div>
+
+<button id="addFamilyBtn" class="secondary-button">
++ Add Family Member
+</button>
+
+</div>
+
+
+<!-- PROGRESS GARDEN -->
+<div id="progress" class="content-card progress-card">
+
+<div class="card-heading">
+<div>
+<p class="section-label">LOOK HOW FAR YOU'VE COME</p>
+<h2>Progress Garden ✿</h2>
+</div>
+</div>
+
+<div class="garden-illustration">
+🌱 🌷 🌼
+</div>
+
+<h3>Keep growing!</h3>
+
+<p class="card-description">
+Every completed task is another little achievement.
+</p>
+
+<div class="progress-bar">
+<div id="gardenProgressBar"></div>
+</div>
+
+<p id="gardenProgressText">0% completed</p>
+
+</div>
+
+</div>
+<!-- END DASHBOARD GRID -->
+
+</section>
+
+
+<!-- TASK MODAL -->
+<div id="taskModal" class="modal">
+
+<div class="modal-content">
+
+<button class="close-modal" data-close="taskModal">
+×
+</button>
+
+<h2>Create a Task ✧</h2>
+
+<form id="taskForm">
+
+<label for="taskTitle">Task Name</label>
+<input
+type="text"
+id="taskTitle"
+placeholder="What do you need to do?"
+required>
+
+<label for="taskCategory">Category</label>
+<input
+type="text"
+id="taskCategory"
+placeholder="e.g. Python, College">
+
+<label for="taskPriority">Priority</label>
+<select id="taskPriority">
+<option>Low</option>
+<option selected>Medium</option>
+<option>High</option>
+</select>
+
+<label for="taskDueDate">Due Date</label>
+<input type="date" id="taskDueDate">
+
+<button type="submit" class="primary-button">
+Save Task
+</button>
+
+</form>
+
+</div>
+</div>
+
+
+<!-- EVENT MODAL -->
+<div id="eventModal" class="modal">
+
+<div class="modal-content">
+
+<button class="close-modal" data-close="eventModal">
+×
+</button>
+
+<h2>Add Calendar Event ♡</h2>
+
+<form id="eventForm">
+
+<label for="eventTitle">Event Name</label>
+<input
+type="text"
+id="eventTitle"
+placeholder="e.g. Python Evaluation"
+required>
+
+<label for="eventDate">Date</label>
+<input type="date" id="eventDate" required>
+
+<label for="eventTime">Time</label>
+<input type="time" id="eventTime">
+
+<label for="eventDescription">Description</label>
+<textarea
+id="eventDescription"
+placeholder="Add some details..."></textarea>
+
+<button type="submit" class="primary-button">
+Save Event
+</button>
+
+</form>
+
+</div>
+</div>
+
+
+<!-- REMINDER MODAL -->
+<div id="reminderModal" class="modal">
+
+<div class="modal-content">
+
+<button class="close-modal" data-close="reminderModal">
+×
+</button>
+
+<h2>Create a Reminder ✨</h2>
+
+<form id="reminderForm">
+
+<label for="reminderTitle">Reminder</label>
+<input
+type="text"
+id="reminderTitle"
+placeholder="What should you remember?"
+required>
+
+<label for="reminderDate">Date</label>
+<input type="date" id="reminderDate">
+
+<label for="reminderTime">Time</label>
+<input type="time" id="reminderTime">
+
+<button type="submit" class="primary-button">
+Save Reminder
+</button>
+
+</form>
+
+</div>
+</div>
+
+
+<!-- FAMILY MEMBER MODAL -->
+<div id="familyModal" class="modal">
+
+<div class="modal-content">
+
+<button class="close-modal" data-close="familyModal">
+×
+</button>
+
+<h2>Add Family Member ♡</h2>
+
+<form id="familyForm">
+
+<label for="familyName">Name</label>
+<input
+type="text"
+id="familyName"
+placeholder="Enter their name"
+required>
+
+<label for="familyRelation">Relationship</label>
+<input
+type="text"
+id="familyRelation"
+placeholder="e.g. Mother, Father, Sibling">
+
+<button type="submit" class="primary-button">
+Add Member
+</button>
+
+</form>
+
+</div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+<p>Made with ♡ and a little bit of ambition.</p>
+<p>StudySync © 2026</p>
+</footer>
+
+</main>
+
+</div>
+
+</body>
+</html>
